@@ -1,14 +1,15 @@
-package com.gb.stopwatch
+package com.gb.stopwatch.viewmodel
 
+import com.gb.stopwatch.data.datasource.StopwatchStateHolder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class StopwatchListOrchestrator(
-	private val stopwatchStateHolder: StopwatchStateHolder,
-	private val scope: CoroutineScope,
+	private val stopwatchStateHolder: StopwatchStateHolder
 ) {
 
+	private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 	private var job: Job? = null
 	private val mutableTicker = MutableStateFlow("")
 	val ticker: StateFlow<String> = mutableTicker
